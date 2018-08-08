@@ -4,7 +4,9 @@
   "description": "This will provides api/services to cottos",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node app.js",
+    "start": "node app.js",
+    "build": "node app.js"
   },
   "keywords": [],
   "author": "Erik M.",
