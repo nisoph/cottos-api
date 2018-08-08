@@ -1,0 +1,21 @@
+{
+  "name": "cottos-api",
+  "version": "1.0.0",
+  "description": "This will provides api/services to cottos",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Erik M.",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "eslint": "^5.2.0",
+    "express": "^4.16.3",
+    "helmet": "^3.12.1",
+    "jsonwebtoken": "^8.3.0",
+    "morgan": "^1.9.0",
+    "mysql": "^2.15.0"
+  }
+}
