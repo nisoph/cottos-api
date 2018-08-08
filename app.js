@@ -29,7 +29,6 @@ app.get("/", function (req, res) {
 /**
  *  Setup the server
  */
-app.set('port',  config.port || 3000)
-var server = app.listen(app.get('port'), function () {
-    console.log('Express server is listening on port ' + server.address().port);
-});
+var port = process.env.PORT || 3000;
+app.listen(port);
+console.log('Express server is listening on port '+ port);
