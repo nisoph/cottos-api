@@ -1,3 +1,6 @@
+CREATE DATABASE  IF NOT EXISTS `konddify_db` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `konddify_db`;
+--
 -- Host: localhost    Database: konddify_db
 -- ------------------------------------------------------
 -- Server version	5.7.16
@@ -92,7 +95,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (3,1,'Super Admin','Cottos','sadmin@konddify.com',NULL,0,'2018-07-29 13:38:34'),(4,2,'Aministrador','Cottos','administrador@konddify.com',NULL,0,'2018-08-07 20:29:48'),(5,3,'Residente','Cottos','residente@konddify.com',NULL,0,'2018-08-07 20:29:48'),(6,4,'Seguridad','Cottos','seguridad@konddify.com',NULL,0,'2018-08-07 20:30:14');
+INSERT INTO `users` VALUES (3,1,'Super Admin','Cottos','sadmin@konddify.com','https://picsum.photos/150/150/?image=58',0,'2018-07-29 13:38:34'),(4,2,'Aministrador','Cottos','administrador@konddify.com','https://picsum.photos/150/150/?image=59',0,'2018-08-07 20:29:48'),(5,3,'Residente','Cottos','residente@konddify.com','https://picsum.photos/150/150/?image=60',0,'2018-08-07 20:29:48'),(6,4,'Seguridad','Cottos','seguridad@konddify.com','https://picsum.photos/150/150/?image=61',0,'2018-08-07 20:30:14');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

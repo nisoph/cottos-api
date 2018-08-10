@@ -16,7 +16,7 @@ var auth = require('../interceptors/auth');
 var router = express.Router();
 router.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, *");
     next();
 });
 
@@ -26,5 +26,4 @@ router.use(function (req, res, next) {
 router.post('/api/v1/auth/login', authController.login);
 router.get('/api/v1/profile', auth([ROLE_SADMIN, ROLE_ADMIN, ROLE_RESIDENT, ROLE_SECURITY]), authController.getProfile);
 
-// export this module
 module.exports = router;
