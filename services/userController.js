@@ -18,7 +18,7 @@ var usercontroller = function () { };
  * @param callback Callback function
  */
 usercontroller.prototype.findById = function (userId, callback) {
-    var findUserQuery = 'SELECT u.first_name as `nombre`,u.last_name as `apellido`,u.email,u.profile_img,r.role_name as `role` FROM users u,roles r WHERE u.role_id = r.id AND u.id=?';
+    var findUserQuery = 'SELECT u.id as `id`,u.first_name as `nombre`,u.last_name as `apellido`,u.email,u.profile_img,r.role_name as `role` FROM users u,roles r WHERE u.role_id = r.id AND u.id=?';
     var params = [userId];
     connectionFactory.getConnection(function (err, connection) {
         if (err) {
@@ -45,7 +45,7 @@ usercontroller.prototype.findById = function (userId, callback) {
  * @param callback Callback function
  */
 usercontroller.prototype.authenticate = function (email, password, callback) {
-    var authQuery = 'SELECT u.first_name as `nombre`,u.last_name as `apellido`,u.email,r.role_name as `role` FROM users u, auth a, roles r WHERE u.id=a.user_id AND u.role_id = r.id AND u.email=? AND a.md5passwd=md5(?)';
+    var authQuery = 'SELECT u.id,u.first_name as `nombre`,u.last_name as `apellido`,u.email,r.role_name as `role` FROM users u, auth a, roles r WHERE u.id=a.user_id AND u.role_id = r.id AND u.email=? AND a.md5passwd=md5(?)';
     var params = [email, password];
     connectionFactory.getConnection(function (err, connection) {
         if (err) {
