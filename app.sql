@@ -1,8 +1,4 @@
-CREATE DATABASE  IF NOT EXISTS `auth_db` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `auth_db`;
--- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
---
--- Host: localhost    Database: auth_db
+-- Host: localhost    Database: konddify_db
 -- ------------------------------------------------------
 -- Server version	5.7.16
 
@@ -31,7 +27,7 @@ CREATE TABLE `auth` (
   PRIMARY KEY (`id`),
   KEY `fk_user_id_idx` (`user_id`),
   CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +36,7 @@ CREATE TABLE `auth` (
 
 LOCK TABLES `auth` WRITE;
 /*!40000 ALTER TABLE `auth` DISABLE KEYS */;
-INSERT INTO `auth` VALUES (3,3,'e6a52c828d56b46129fbf85c4cd164b3');
+INSERT INTO `auth` VALUES (3,3,'25d55ad283aa400af464c76d713c07ad'),(4,4,'25d55ad283aa400af464c76d713c07ad'),(5,5,'25d55ad283aa400af464c76d713c07ad'),(6,6,'25d55ad283aa400af464c76d713c07ad');
 /*!40000 ALTER TABLE `auth` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -77,15 +73,17 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `role_id` int(11) DEFAULT NULL,
-  `full_name` varchar(150) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  `first_name` varchar(50) NOT NULL,
+  `last_name` varchar(50) NOT NULL,
   `email` varchar(150) NOT NULL,
+  `profile_img` varchar(150) DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `registerd_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `FK_USER_ROLES_idx` (`role_id`),
   CONSTRAINT `FK_USER_ROLES` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,7 +92,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (3,1,'EMR','emr@gmail.com',0,'2018-07-29 13:38:34');
+INSERT INTO `users` VALUES (3,1,'Super Admin','Cottos','sadmin@konddify.com',NULL,0,'2018-07-29 13:38:34'),(4,2,'Aministrador','Cottos','administrador@konddify.com',NULL,0,'2018-08-07 20:29:48'),(5,3,'Residente','Cottos','residente@konddify.com',NULL,0,'2018-08-07 20:29:48'),(6,4,'Seguridad','Cottos','seguridad@konddify.com',NULL,0,'2018-08-07 20:30:14');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -106,5 +104,3 @@ UNLOCK TABLES;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2018-08-07 13:20:55
