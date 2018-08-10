@@ -3,7 +3,7 @@ var mysql = require('mysql');
 /**
  * Define connection pool and configurations
  */
-var pool = mysql. createPool({
+/* var pool = mysql. createPool({
     host: 'localhost',
     port: 3306,
     user: 'root',
@@ -13,9 +13,9 @@ var pool = mysql. createPool({
     supportBigNumbers: true,
     dateStrings: true,
     connectionLimit: 10
-});
+}); */
 
-/* var pool = mysql. createPool({
+var pool = mysql. createPool({
     host: 'us-cdbr-iron-east-01.cleardb.net',
     port: 3306,
     user: 'b61bf5ce585674',
@@ -25,7 +25,7 @@ var pool = mysql. createPool({
     supportBigNumbers: true,
     dateStrings: true,
     connectionLimit: 10
-}); */
+});
 
 // export the module
 module.exports = pool;
