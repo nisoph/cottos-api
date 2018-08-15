@@ -60,7 +60,7 @@ usercontroller.prototype.authenticate = function (email, password, callback) {
                     if (rows.length > 0) {
                         callback(null, rows);
                     } else {
-                        callback(true, null);
+                        callback(false, null);
                     }    
                 }
             });
