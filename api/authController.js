@@ -23,14 +23,14 @@ var AuthController = {
         var password = req.body.password || '';
         // validate parameters
         if (email == '' || password == '')
-            return res.status(401).json({ auth: false, message: 'Invalid email or password!' });
+            return res.status(401).json({ auth: false, message: 'Email o contraseña incorrecto!' });
         // validate user credential
         var user = userController.authenticate(email, password, function (err, data) {
             if (err) {
-                res.status(200).json({ error: true, message: 'Something went wrong!' });
+                res.status(200).json({ error: true, message: 'Error inesperado. Intentelo más tarde!' });
             } else if (!data) {
                 // if login credential are not matched or found
-                return res.status(401).json({ auth: false, message: 'Invalid email or password!' });
+                return res.status(401).json({ auth: false, message: 'Email o contraseña incorrecto!' });
             } else {
                 var user = {
                     id: data[0].id,
@@ -58,9 +58,9 @@ var AuthController = {
     getProfile: function (req, res) {
         var user = userController.findById(req.auth.id, function (err, data) {
             if (err) {
-                res.status(200).json({ error: true, message: 'Something went wrong!' });
+                res.status(200).json({ error: true, message: 'Error inesperado. Intentelo más tarde!' });
             } else if (!data) {
-                res.status(200).json({ error: true, message: 'User not found!' });
+                res.status(200).json({ error: true, message: 'El usuario no fue encontrado!' });
             } else {
                 res.status(200).json({ success: true, user: data[0] });
             }

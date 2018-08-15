@@ -1,7 +1,7 @@
 {
-  "name": "cottos-api",
+  "name": "konddify-api",
   "version": "1.0.0",
-  "description": "This will provides api/services to cottos",
+  "description": "This will provides api/services to konddify",
   "main": "index.js",
   "scripts": {
     "dev": "node app.js",

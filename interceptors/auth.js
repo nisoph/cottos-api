@@ -27,19 +27,19 @@ function authenticate(roles) {
             jwt.verify(token, config.secret, function (err, decoded) {
                 
                 if (err) {
-                    return res.status(401).send({ auth: false, message: 'Invalid authorization token.' });
+                    return res.status(401).send({ auth: false, message: 'Token de autorización invalido.' });
                 } else {
                     if(roles.indexOf(decoded.role) >= 0) {
                         // if everything is good, save to request for use in other routes
                         req.auth = decoded;
                         next();
                     } else {
-                        return res.status(401).send({ auth: false, message: 'Authorization failed.' });
+                        return res.status(401).send({ auth: false, message: 'Falló la autorización.' });
                     }
                 }
             });
         } else {
-            return res.status(403).send({ auth: false, message: 'Authorization token not found.' });
+            return res.status(403).send({ auth: false, message: 'Token de autorización no encontrado.' });
         }
     }
 }
