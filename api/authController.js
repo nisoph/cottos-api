@@ -34,7 +34,7 @@ var AuthController = {
             } else {
                 var user = {
                     id: data[0].id,
-                    name: data[0].name,
+                    name: data[0].nombre + ' ' + data[0].apellido,
                     email: data[0].email,
                     role: data[0].role
                 };
@@ -42,7 +42,7 @@ var AuthController = {
                 var token = jwt.sign(user, config.secret, { expiresIn: config.tokenExpireIn });
 
                 var userInfo = {
-                    name: data[0].name,
+                    name: data[0].nombre + ' ' + data[0].apellido,
                     email: data[0].email,
                     role: data[0].role
                 };
