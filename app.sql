@@ -104,6 +104,7 @@ CREATE TABLE IF NOT EXISTS `cotos` (
   `direccion` VARCHAR(150) NOT NULL,
   `numero_ext` VARCHAR(45) NOT NULL,
   `colonia` VARCHAR(45) NOT NULL,
+  `cp` INT NOT NULL,
   `coto_img` VARCHAR(150) NULL,
   `estado` VARCHAR(45) NOT NULL,
   `ciudad` VARCHAR(45) NOT NULL,
