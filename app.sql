@@ -149,7 +149,10 @@ CREATE TABLE IF NOT EXISTS `propiedades` (
   `id_coto` INT NOT NULL,
   `id_propietario` INT NOT NULL,
   `calle` VARCHAR(150) NOT NULL,
-  `numero_int` INT NULL,
+  `numero_int` INT NOT NULL,
+  `terreno_mt2` DOUBLE NOT NULL DEFAULT '0.00',
+  `construccion_mt2` DOUBLE NOT NULL DEFAULT '0.00',
+  `estatus` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `FK_PROPIEDADES-COTOS`
     FOREIGN KEY (`id_coto`)
