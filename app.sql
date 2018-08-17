@@ -1,6 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `konddify_db` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `konddify_db`;
---
 -- Host: localhost    Database: konddify_db
 -- ------------------------------------------------------
 -- Server version	5.7.16
@@ -20,90 +17,152 @@ USE `konddify_db`;
 -- Table structure for table `auth`
 --
 
-DROP TABLE IF EXISTS `auth`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `auth` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `md5passwd` text,
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+CREATE SCHEMA IF NOT EXISTS `konddify_db` DEFAULT CHARACTER SET utf8 ;
+USE `konddify_db` ;
+
+-- -----------------------------------------------------
+-- Table `roles`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `roles` ;
+
+CREATE TABLE IF NOT EXISTS `roles` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `nombre_rol` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 5
+DEFAULT CHARACTER SET = latin1;
+
+INSERT INTO `users` VALUES (1,1,'Super Admin','Cottos','sadmin@konddify.com','https://picsum.photos/150/150/?image=58',0,'2018-07-29 13:38:34'),
+(2,2,'Aministrador','Cottos','administrador@konddify.com','https://picsum.photos/150/150/?image=59',0,'2018-08-07 20:29:48'),
+(3,3,'Residente','Cottos','residente@konddify.com','https://picsum.photos/150/150/?image=60',0,'2018-08-07 20:29:48'),
+(4,4,'Seguridad','Cottos','seguridad@konddify.com','https://picsum.photos/150/150/?image=61',0,'2018-08-07 20:30:14');
+
+
+-- -----------------------------------------------------
+-- Table `usuarios`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `usuarios` ;
+
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `id_rol` INT(11) NOT NULL,
+  `nombre` VARCHAR(50) NOT NULL,
+  `apellido` VARCHAR(50) NOT NULL,
+  `email` VARCHAR(150) NOT NULL,
+  `perfil_img` VARCHAR(150) NULL DEFAULT NULL,
+  `estatus` TINYINT(1) NOT NULL DEFAULT '0',
+  `creado` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `fk_user_id_idx` (`user_id`),
-  CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  CONSTRAINT `FK_USER_ROLES`
+    FOREIGN KEY (`id_rol`)
+    REFERENCES `roles` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 7
+DEFAULT CHARACTER SET = utf8;
 
---
--- Dumping data for table `auth`
---
 
-LOCK TABLES `auth` WRITE;
-/*!40000 ALTER TABLE `auth` DISABLE KEYS */;
-INSERT INTO `auth` VALUES (3,3,'25d55ad283aa400af464c76d713c07ad'),(4,4,'25d55ad283aa400af464c76d713c07ad'),(5,5,'25d55ad283aa400af464c76d713c07ad'),(6,6,'25d55ad283aa400af464c76d713c07ad');
-/*!40000 ALTER TABLE `auth` ENABLE KEYS */;
-UNLOCK TABLES;
+-- -----------------------------------------------------
+-- Table `auth`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `auth` ;
 
---
--- Table structure for table `roles`
---
-
-DROP TABLE IF EXISTS `roles`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `roles` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `role_name` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `roles`
---
-
-LOCK TABLES `roles` WRITE;
-/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,'SADMIN'),(2,'ADMIN'),(3,'RESIDENT'),(4,'SECURITY');
-/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `users`
---
-
-DROP TABLE IF EXISTS `users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `role_id` int(11) NOT NULL,
-  `first_name` varchar(50) NOT NULL,
-  `last_name` varchar(50) NOT NULL,
-  `email` varchar(150) NOT NULL,
-  `profile_img` varchar(150) DEFAULT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '0',
-  `registerd_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+CREATE TABLE IF NOT EXISTS `auth` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `id_usuario` INT(11) NOT NULL,
+  `contrasena` TEXT NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_USER_ROLES_idx` (`role_id`),
-  CONSTRAINT `FK_USER_ROLES` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  CONSTRAINT `fk_user_id`
+    FOREIGN KEY (`id_usuario`)
+    REFERENCES `usuarios` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 7
+DEFAULT CHARACTER SET = utf8;
 
---
--- Dumping data for table `users`
---
+INSERT INTO `auth` VALUES (1,1,'25d55ad283aa400af464c76d713c07ad'),
+(2,2,'25d55ad283aa400af464c76d713c07ad'),
+(3,3,'25d55ad283aa400af464c76d713c07ad'),
+(4,4,'25d55ad283aa400af464c76d713c07ad');
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (3,1,'Super Admin','Cottos','sadmin@konddify.com','https://picsum.photos/150/150/?image=58',0,'2018-07-29 13:38:34'),(4,2,'Aministrador','Cottos','administrador@konddify.com','https://picsum.photos/150/150/?image=59',0,'2018-08-07 20:29:48'),(5,3,'Residente','Cottos','residente@konddify.com','https://picsum.photos/150/150/?image=60',0,'2018-08-07 20:29:48'),(6,4,'Seguridad','Cottos','seguridad@konddify.com','https://picsum.photos/150/150/?image=61',0,'2018-08-07 20:30:14');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+-- -----------------------------------------------------
+-- Table `cotos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cotos` ;
+
+CREATE TABLE IF NOT EXISTS `cotos` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(100) NOT NULL,
+  `direccion` VARCHAR(150) NOT NULL,
+  `numero_ext` VARCHAR(45) NOT NULL,
+  `colonia` VARCHAR(45) NOT NULL,
+  `coto_img` VARCHAR(150) NULL,
+  `estado` VARCHAR(45) NOT NULL,
+  `ciudad` VARCHAR(45) NOT NULL,
+  `tel_contacto` VARCHAR(45) NOT NULL,
+  `tel_emergencia` VARCHAR(45) NOT NULL,
+  `status` TINYINT(1) NOT NULL DEFAULT '0',
+  `creado` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cotos_admin`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cotos_admin` ;
+
+CREATE TABLE IF NOT EXISTS `cotos_admin` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `id_coto` INT NOT NULL,
+  `id_usuario` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `FK_COTOS_ADMIN-COTOS`
+    FOREIGN KEY (`id_coto`)
+    REFERENCES `cotos` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_COTOS_ADMIN-USERS`
+    FOREIGN KEY (`id_usuario`)
+    REFERENCES `usuarios` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `propiedades`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `propiedades` ;
+
+CREATE TABLE IF NOT EXISTS `propiedades` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `id_coto` INT NOT NULL,
+  `id_propietario` INT NOT NULL,
+  `calle` VARCHAR(150) NOT NULL,
+  `numero_int` INT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `FK_PROPIEDADES-COTOS`
+    FOREIGN KEY (`id_coto`)
+    REFERENCES `cotos` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_PROPIEDADES-USERS`
+    FOREIGN KEY (`id_propietario`)
+    REFERENCES `usuarios` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
