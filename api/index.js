@@ -9,6 +9,7 @@ const ROLE_SECURITY = 'SECURITY';
 var cors = require('cors');
 var express = require('express');
 var authController = require('./authController');
+var sadminController = require('./sadminController');
 var auth = require('../interceptors/auth');
 
 /**
@@ -22,5 +23,6 @@ router.use(cors());
  */
 router.post('/api/v1/auth/login', authController.login);
 router.get('/api/v1/profile', auth([ROLE_SADMIN, ROLE_ADMIN, ROLE_RESIDENT, ROLE_SECURITY]), authController.getProfile);
+router.get('/api/v1/sadmin/cotos', auth([ROLE_SADMIN]), sadminController.getCotos);
 
 module.exports = router;
