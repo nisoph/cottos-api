@@ -39,7 +39,8 @@ var AuthController = {
                     role: data[0].role
                 };
                 // user is authenticated, now generate access token                
-                var token = jwt.sign(user, config.secret, { expiresIn: config.tokenExpireIn });
+                // var token = jwt.sign(user, config.secret, { expiresIn: config.tokenExpireIn });
+                var token = jwt.sign(user, config.secret);
 
                 var userInfo = {
                     name: data[0].nombre + ' ' + data[0].apellido,
