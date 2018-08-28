@@ -13,7 +13,7 @@ var connectionFactory = require('../utils/connectionFactory');
 var sadmincontroller = function () { };
 
 /**
- * Get a user record for provided user id
+ * Get the list of cotos
  * @param id Id of the user
  * @param callback Callback function
  */
@@ -23,9 +23,7 @@ sadmincontroller.prototype.getCotosList = function (callback) {
         if (err) {
             callback(true, null);
         } else {
-            console.log('HERE');
             connection.query(findCotosQuery, function (err, rows, fields) {
-                console.log(err);
                 if (err) {
                     connection.release();
                     callback(true, null);
@@ -37,6 +35,32 @@ sadmincontroller.prototype.getCotosList = function (callback) {
         }
 
     });
+}
+
+/**
+ * Add a new Coto
+ * @param details details of the new coto
+ * @param callback Callback function
+ */
+sadmincontroller.prototype.addCoto = function (details, callback) {
+    /* var authQuery = 'SELECT u.id,u.nombre,u.apellido,u.email,r.nombre_rol as `role` FROM usuarios u, auth a, roles r WHERE u.id=a.id_usuario AND u.id_rol = r.id AND u.email=? AND a.contrasena=md5(?)';
+    connectionFactory.getConnection(function (err, connection) {
+        if (err) {
+            callback(true, null);
+        } else {
+            connection.query(authQuery, details, function (err, rows, fields) {
+                if (err) {
+                    connection.release();
+                    callback(true, null);
+                } else {
+                    connection.release();
+                    callback(null, rows);
+                }
+            });
+        }
+    });*/
+    console.log(details
+    );
 }
 
 module.exports = new sadmincontroller();
