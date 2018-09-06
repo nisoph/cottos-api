@@ -28,7 +28,11 @@ const AuthController = {
     // validate user credential
     var user = userService.authenticate(email, password, function (err, data) {
       if (err) {
-        res.status(200).json({ error: true, message: `Error inesperado. Intentelo más tarde! Error: ${err}` });
+        console.error(err);
+        console.error(data);
+        console.error(email);
+        console.error(password);
+        res.status(200).json({ error: true, message: 'Error inesperado. Intentelo más tarde!' });
       } else if (!data) {
         // if login credential are not matched or found
         return res.status(401).json({ auth: false, message: 'Email o contraseña incorrecto!' });
