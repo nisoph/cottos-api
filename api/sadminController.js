@@ -1,55 +1,75 @@
 /**
- * This module contains all the functions to handle requests such as login, register 
+ * This module contains all the functions to handle requests such as login, register
  * and requests related to user profile.
  */
-
-var sadminController = require('../services/sadminController'); // get super admin controller
-
+const md5 = require('md5');
+var sadminService = require('../services/sadminService'); // get super admin controller
 /**
  * Define module
  */
-var SAdminController = {
+const SAdminController = {
 
-    /**
+  /**
      * Get list of cotos
      */
     getCotos: function (req, res) {
-        var cotos = sadminController.getCotosList(function (err, data) {
-            if (err) {
-                res.status(200).json({ error: true, message: 'Error inesperado. Intentelo más tarde!' });
-            } else if (!data) {
-                res.status(200).json({ error: true, message: 'No se encontraron Cotos registrados!' });
-            } else {
-                res.status(200).json({ success: true, cotos: data });
-            }
-        });
-    },
+      const cotos = sadminService.getCotosList(function (err, data) {
+      if (err) {
+        res.status(200).json({ error: true, message: 'Error inesperado. Intentelo más tarde!' });
+      } else if (!data) {
+        res.status(200).json({ error: true, message: 'No se encontraron Cotos registrados!' });
+      } else {
+        res.status(200).json({ success: true, cotos: data });
+      }
+    });
+  },
 
-    /**
+  /**
      * Add new coto
      */
-    addCoto: function (req, res) {
-        var nombreCoto = req.body.nombreCoto || '';
-        var direccionCoto = req.body.direccionCoto || '';
-        var numeroExtCoto = req.body.numeroExtCoto || '';
-        var coloniaCoto = req.body.coloniaCoto || '';
-        var estadoCoto = req.body.estadoCoto || '';
-        var ciudadCoto = req.body.ciudadCoto || '';
-        var cpCoto = req.body.cpCoto || '';
-        var telContactoCoto = req.body.telContactoCoto || '';
-        var telEmergenciaCoto = req.body.telEmergenciaCoto || '';
-        var imgCoto = req.body.imcgCoto || '';
+  addCoto: function (req, res) {
+    const cotoInfo = {
+      nombre: req.body.nombreCoto || '',
+      direccion: req.body.direccionCoto || '',
+      numero_ext: req.body.numeroExtCoto || '',
+      colonia: req.body.coloniaCoto || '',
+      coto_img: req.body.imgCoto || '',
+      estado: req.body.estadoCoto || '',
+      ciudad: req.body.ciudadCoto || '',
+      cp: req.body.cpCoto || '',
+      tel_contacto: req.body.telContactoCoto || '',
+      tel_emergencia: req.body.telEmergenciaCoto || '',
+    };
 
-        var newCoto = sadminController.addCoto(req.body, function (err, data) {
-            if (err) {
-                res.status(200).json({ error: true, message: 'Error inesperado. Intentelo más tarde!' });
-            } else if (!data) {
-                res.status(200).json({ error: true, message: 'No se pudo creat el nuevo coto!' });
-            } else {
-                res.status(200).json({ success: true, cotos: data });
-            }
+    const userAdminInfo = {
+      id_coto: '',
+      nombreCoto: req.body.nombreCoto || '',
+      nombre: req.body.nombreAdminCoto || '',
+      apellido: req.body.apellidoAdminCoto || '',
+      email: req.body.adminCotoEmail || '',
+      contrasenaMD5: md5('mikonddify') || '',
+      contrasena: 'mikonddify' || '',
+    };
+
+    sadminService.addCoto(cotoInfo, function (err, data) {
+      if (err) {
+        res.status(200).json({ error: true, message: 'Error inesperado. Intentelo más tarde!' });
+      } else if (!data) {
+        res.status(200).json({ error: true, message: 'No se pudo crear el nuevo coto!' });
+      } else {
+        userAdminInfo.id_coto = data.insertId;
+        sadminService.addUserAdminCoto(userAdminInfo, function (err, data) {
+          if (err) {
+            res.status(200).json({ error: true, message: 'Error inesperado. Intentelo más tarde!' });
+          } else if (!data) {
+            res.status(200).json({ error: true, message: 'No se pudo crear el nuevo usuario!' });
+          } else {
+            res.status(200).json({ success: true, user: data });
+          }
         });
-    }
+      }
+    });
+  },
 }
 
 // export this module

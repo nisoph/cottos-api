@@ -12,12 +12,13 @@
   "author": "Erik M.",
   "license": "ISC",
   "dependencies": {
+    "@sendgrid/mail": "^6.3.1",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
-    "eslint": "^5.2.0",
     "express": "^4.16.3",
     "helmet": "^3.12.1",
     "jsonwebtoken": "^8.3.0",
+    "md5": "^2.2.1",
     "morgan": "^1.9.0",
     "mysql": "^2.15.0"
   }

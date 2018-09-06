@@ -6,16 +6,16 @@ const ROLE_SECURITY = 'SECURITY';
 /**
  * This module defines all the api routes
  */
-var cors = require('cors');
-var express = require('express');
-var authController = require('./authController');
-var sadminController = require('./sadminController');
-var auth = require('../interceptors/auth');
+const cors = require('cors');
+const express = require('express');
+const authController = require('./authController');
+const sadminController = require('./sadminController');
+const auth = require('../interceptors/auth');
 
 /**
  * Define router
  */
-var router = express.Router();
+const router = express.Router();
 router.use(cors());
 
 /**

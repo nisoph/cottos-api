@@ -1,12 +1,11 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var morgan = require('morgan');
-var config = require('./config/env');
+const express = require('express');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
 
-/** 
+/**
  * Create express app
  */
-var app = express();
+const app = express();
 
 /**
  * Setup body parser
@@ -21,14 +20,14 @@ app.use(morgan('dev'));
 
 app.use('/', require('./api'));
 
-app.get("/", function (req, res) {
-    res.json({ message: "Express is up!" });
+app.get('/', function (req, res) {
+  res.json({ message: 'Express is up!' });
 });
 
 
 /**
  *  Setup the server
  */
-var port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 app.listen(port);
-console.log('Express server is listening on port '+ port);
+console.log(`Express server is listening on port ${port}`);

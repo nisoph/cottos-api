@@ -37,11 +37,10 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 5
 DEFAULT CHARACTER SET = latin1;
 
-INSERT INTO `users` VALUES (1,1,'Super Admin','Cottos','sadmin@konddify.com','https://picsum.photos/150/150/?image=58',0,'2018-07-29 13:38:34'),
-(2,2,'Aministrador','Cottos','administrador@konddify.com','https://picsum.photos/150/150/?image=59',0,'2018-08-07 20:29:48'),
-(3,3,'Residente','Cottos','residente@konddify.com','https://picsum.photos/150/150/?image=60',0,'2018-08-07 20:29:48'),
-(4,4,'Seguridad','Cottos','seguridad@konddify.com','https://picsum.photos/150/150/?image=61',0,'2018-08-07 20:30:14');
-
+INSERT INTO `roles` VALUES (1,'SADMIN'),
+(2,'ADMIN'),
+(3,'RESIDENT'),
+(4,'SECURITY');
 
 -- -----------------------------------------------------
 -- Table `usuarios`
@@ -66,6 +65,11 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 ENGINE = InnoDB
 AUTO_INCREMENT = 7
 DEFAULT CHARACTER SET = utf8;
+
+INSERT INTO `usuarios` VALUES (1,1,'Super Admin','Cottos','sadmin@konddify.com','https://picsum.photos/150/150/?image=58',0,'2018-07-29 13:38:34'),
+(2,2,'Aministrador','Cottos','administrador@konddify.com','https://picsum.photos/150/150/?image=59',0,'2018-08-07 20:29:48'),
+(3,3,'Residente','Cottos','residente@konddify.com','https://picsum.photos/150/150/?image=60',0,'2018-08-07 20:29:48'),
+(4,4,'Seguridad','Cottos','seguridad@konddify.com','https://picsum.photos/150/150/?image=61',0,'2018-08-07 20:30:14');
 
 
 -- -----------------------------------------------------
