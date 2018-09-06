@@ -36,7 +36,7 @@ console.log(process.env.DB_HOST);
 console.log(process.env.DB_DATABASE);
 console.log(process.env.DB_USER);
 console.log(process.env.DB_PASS);
-console.log(process.env.API_PORT);
+console.log(process.env.PORT);
 console.log(process.env.API_JWT_SECRET);
 console.log(process.env.API_JWT_TOKEN_EXPIRATION_TIME);
 console.log(process.env.EMAIL_SENDGRID_API_KEY);
