@@ -72,10 +72,18 @@ userservice.prototype.authenticate = function (email, password, callback) {
   const params = [email, password];
   connectionFactory.getConnection(function (err, connection) {
     if (err) {
+      console.error(err);
+      console.error(data);
+      console.error(email);
+      console.error(password);
       callback(true, null);
     } else {
       connection.query(authQuery, params, function (err, rows, fields) {
         if (err) {
+          console.error(err);
+          console.error(data);
+          console.error(email);
+          console.error(password);
           connection.release();
           callback(true, null);
         } else {
