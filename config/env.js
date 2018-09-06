@@ -3,8 +3,8 @@
  * These configuration can be changed according to your choice
  */
 module.exports = {
-  port: 3000, // server port
-  secret: 'cottos-konddos.secret', // jwt secret
-  tokenExpireIn: 86400, // 24 hours
-  SENDGRID_API_KEY: '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',
+  port: process.env.API_PORT, // server port
+  secret: process.env.API_JWT_SECRET, // jwt secret
+  tokenExpireIn: process.env.API_JWT_TOKEN_EXPIRATION_TIME, // 24 hours
+  SENDGRID_API_KEY: process.env.EMAIL_SENDGRID_API_KEY,
 };
