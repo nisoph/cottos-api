@@ -1,5 +1,7 @@
 require('dotenv').config();
 const express = require('express');
+const busboy = require('connect-busboy');
+const busboyBodyParser = require('busboy-body-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 
@@ -11,8 +13,10 @@ const app = express();
 /**
  * Setup body parser
  */
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(busboy());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(busboyBodyParser());
 
 /**
  * Set up logger

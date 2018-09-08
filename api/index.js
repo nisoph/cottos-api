@@ -25,5 +25,6 @@ router.post('/api/v1/auth/login', authController.login);
 router.get('/api/v1/profile', auth([ROLE_SADMIN, ROLE_ADMIN, ROLE_RESIDENT, ROLE_SECURITY]), authController.getProfile);
 router.get('/api/v1/sadmin/cotos', auth([ROLE_SADMIN]), sadminController.getCotos);
 router.post('/api/v1/sadmin/coto', auth([ROLE_SADMIN]), sadminController.addCoto);
+router.get('/api/v1/sadmin/coto/:cotoId', auth([ROLE_SADMIN]), sadminController.getCoto);
 
 module.exports = router;

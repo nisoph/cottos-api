@@ -5,7 +5,7 @@
  */
 const connectionFactory = require('../utils/connectionFactory');
 const userService = require('./userService');
-const emailService = require('../mail/mail-service');
+const emailService = require('./sendgrid/mail-service');
 
 /**
  * Define user authentication operations
@@ -18,7 +18,7 @@ const sadminservice = function () { };
  * @param callback Callback function
  */
 sadminservice.prototype.getCotosList = function (callback) {
-  const findCotosQuery = 'SELECT c.id as id, c.nombre as coto, u.nombre, u.apellido, c.tel_contacto as telefono, u.email as correo FROM cotos c, cotos_admin ca, usuarios u WHERE c.id = ca.id_coto AND ca.id_usuario = u.id;';
+  const findCotosQuery = 'SELECT c.id as id, c.nombre as coto, c.colonia, u.nombre, u.apellido FROM cotos c, cotos_admin ca, usuarios u WHERE c.id = ca.id_coto AND ca.id_usuario = u.id;';
   connectionFactory.getConnection(function (err, connection) {
     if (err) {
       callback(true, null);
@@ -30,6 +30,25 @@ sadminservice.prototype.getCotosList = function (callback) {
         } else {
           connection.release();
           callback(null, rows);
+        }
+      });
+    }
+  });
+}
+
+sadminservice.prototype.getCotoById = function (cotoId, callback) {
+  const findCotoQuery = 'SELECT c.id as id, c.nombre as coto, c.direccion, c.numero_ext, c.colonia, c.cp, c.coto_img, c.estado, c.ciudad, c.tel_contacto, c.tel_emergencia, c.status, c.creado, (select count(pr.id) from propiedades pr, cotos co where co.id = pr.id_coto and co.id=c.id) as no_propiedades, u.nombre, u.apellido FROM cotos c, cotos_admin ca, usuarios u WHERE c.id=ca.id_coto AND ca.id_usuario=u.id AND c.id=?;';
+  connectionFactory.getConnection(function (err, connection) {
+    if (err) {
+      callback(true, null);
+    } else {
+      connection.query(findCotoQuery, cotoId, function (err, row, fields) {
+        if (err) {
+          connection.release();
+          callback(true, null);
+        } else {
+          connection.release();
+          callback(null, row);
         }
       });
     }
@@ -48,6 +67,30 @@ sadminservice.prototype.addCoto = function (infoCoto, callback) {
       callback(true, null);
     } else {
       connection.query(cotoInsertSql, infoCoto, function (err, rows, fields) {
+        if (err) {
+          connection.release();
+          callback(true, null);
+        } else {
+          connection.release();
+          callback(null, rows);
+        }
+      });
+    }
+  });
+}
+
+/**
+ * Add a new Coto
+ * @param infoCoto details of the new coto
+ * @param callback Callback function
+ */
+sadminservice.prototype.updateCotoLogo = function (infoCoto, callback) {
+  const cotoInsertSql = 'UPDATE cotos SET coto_img=? WHERE id=?';
+  connectionFactory.getConnection(function (err, connection) {
+    if (err) {
+      callback(true, null);
+    } else {
+      connection.query(cotoInsertSql, [infoCoto.coto_img, infoCoto.id], function (err, rows, fields) {
         if (err) {
           connection.release();
           callback(true, null);

@@ -2,7 +2,7 @@
  * SendGrid Setup and Options
  */
 
-const config = require('../config/env');
+const config = require('../../config/env');
 
 const options = {
   method: 'POST',
