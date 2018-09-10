@@ -37,7 +37,7 @@ sadminservice.prototype.getCotosList = function (callback) {
 }
 
 sadminservice.prototype.getCotoById = function (cotoId, callback) {
-  const findCotoQuery = 'SELECT c.id as id, c.nombre as coto, c.direccion, c.numero_ext, c.colonia, c.cp, c.coto_img, c.estado, c.ciudad, c.tel_contacto, c.tel_emergencia, c.status, c.creado, (select count(pr.id) from propiedades pr, cotos co where co.id = pr.id_coto and co.id=c.id) as no_propiedades, u.nombre, u.apellido FROM cotos c, cotos_admin ca, usuarios u WHERE c.id=ca.id_coto AND ca.id_usuario=u.id AND c.id=?;';
+  const findCotoQuery = 'SELECT c.id as id, c.nombre as coto, c.direccion, c.numero_ext, c.colonia, c.cp, c.coto_img, c.estado, c.ciudad, c.tel_contacto, c.tel_emergencia, c.status, c.creado, (select count(pr.id) from propiedades pr, cotos co where co.id = pr.id_coto and co.id=c.id) as no_propiedades, u.nombre, u.apellido, u.email FROM cotos c, cotos_admin ca, usuarios u WHERE c.id=ca.id_coto AND ca.id_usuario=u.id AND c.id=?;';
   connectionFactory.getConnection(function (err, connection) {
     if (err) {
       callback(true, null);
