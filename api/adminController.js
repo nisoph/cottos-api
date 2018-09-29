@@ -1,43 +1,25 @@
 /**
- * This module contains all the functions to handle requests such as login, register
- * and requests related to user profile.
+ * This module contains all the functions to handle Administrators requests
  */
-const md5 = require('md5');
-const Busboy = require('busboy');
-const sadminService = require('../services/sadminService'); // get super admin service
-const s3Service = require('../services/aws-s3/s3-service'); // get S3 service
+// const Busboy = require('busboy');
+const adminService = require('../services/adminService'); // get admin service
 
 /**
  * Define module
  */
-const SAdminController = {
-
-  /**
-   * Get list of cotos
-   */
-  getCotos: function (req, res) {
-    sadminService.getCotosList(function (err, data) {
-      if (err) {
-        res.status(200).json({ error: true, message: 'Error inesperado. Intentelo más tarde!' });
-      } else if (!data) {
-        res.status(200).json({ error: true, message: 'No se encontraron Cotos registrados!' });
-      } else {
-        res.status(200).json({ success: true, cotos: data });
-      }
-    });
-  },
+const AdminController = {
 
   /**
    * Get a coto by id
    */
-  getCoto: function (req, res) {
-    sadminService.getCotoById(req.params.cotoId, function (err, data) {
+  getCotoInfo: function (req, res) {
+    adminService.getCotoByUserId(req.auth.id, function (err, data) {
       if (err) {
         res.status(200).json({ error: true, message: 'Error inesperado. Intentelo más tarde!' });
       } else if (!data) {
-        res.status(200).json({ error: true, message: 'No se encontró el Coto!' });
+        res.status(200).json({ error: true, message: 'El coto no fue encontrado!' });
       } else {
-        res.status(200).json({ success: true, coto: data });
+        res.status(200).json({ success: true, coto: data[0] });
       }
     });
   },
@@ -45,8 +27,8 @@ const SAdminController = {
   /**
    * Add new coto
    */
-  addCoto: function (req, res) {
-    const busboy = new Busboy({ headers: req.headers });
+  addProperty: function (req, res) {
+    /* const busboy = new Busboy({ headers: req.headers });
 
     const cotoInfo = {
       nombre: req.body.nombreCoto || '',
@@ -77,7 +59,7 @@ const SAdminController = {
       nombreCoto: req.body.nombreCoto,
     };
 
-    sadminService.addCoto(cotoInfo, function (err, data) {
+    adminService.addCoto(cotoInfo, function (err, data) {
       if (err) {
         res.status(200).json({ error: true, message: 'Error inesperado. Intentelo más tarde!' });
       } else if (!data) {
@@ -89,7 +71,7 @@ const SAdminController = {
 
         // Grant admin access to the Coto created
         userAdminInfo.id_coto = data.insertId;
-        sadminService.addUserAdminCoto(userAdminInfo, function (err, data) {
+        adminService.addUserAdminCoto(userAdminInfo, function (err, data) {
           if (err) {
             res.status(200).json({ error: true, message: 'Error inesperado. Intentelo más tarde!' });
           } else if (!data) {
@@ -99,9 +81,9 @@ const SAdminController = {
           }
         });
       }
-    });
+    }); */
   },
 }
 
 // export this module
-module.exports = SAdminController;
+module.exports = AdminController;

@@ -1,7 +1,6 @@
 /**
- * This module provides methods to access user data and user authentication.
- * I have used array for storing user record, it should be replaced with database.
- *
+ * This module provides methods to access super administrator data.
+ * 
  */
 const connectionFactory = require('../utils/connectionFactory');
 const userService = require('./userService');

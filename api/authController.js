@@ -55,10 +55,10 @@ const AuthController = {
   },
 
   /**
-     * Get user profile
-     */
-    getProfile: function (req, res) {
-      var user = userService.findById(req.auth.id, function (err, data) {
+   * Get user profile
+   */
+  getProfile: function (req, res) {
+    var user = userService.findById(req.auth.id, function (err, data) {
       if (err) {
         res.status(200).json({ error: true, message: 'Error inesperado. Intentelo más tarde!' });
       } else if (!data) {
