@@ -25,11 +25,13 @@ const replyTo = {
   name: 'Hola Konddify',
 };
 
-const welcomeTemplateId = 'd-6824a305eacd4743be8f4a141db63411';
+const welcomeAdminTemplateId = 'd-6824a305eacd4743be8f4a141db63411';
+const welcomeResidentTemplateId = 'd-6824a305eacd4743be8f4a141db63411';
 
 module.exports = {
   options,
   from,
   replyTo,
-  welcomeTemplateId,
+  welcomeAdminTemplateId,
+  welcomeResidentTemplateId,
 };

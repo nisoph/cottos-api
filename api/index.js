@@ -35,7 +35,8 @@ router.get('/api/v1/sadmin/coto/:cotoId', auth([ROLE_SADMIN]), sadminController.
 /**
  * Define api routes for Administrators
  */
-router.get('/api/v1/admin/properties', auth([ROLE_SADMIN, ROLE_ADMIN]), adminController.getCotoInfo);
-// router.post('/api/v1/admin/properties', auth([ROLE_SADMIN]), adminController.addProperty);
+router.get('/api/v1/admin/coto', auth([ROLE_SADMIN, ROLE_ADMIN]), adminController.getCotoInfo);
+router.get('/api/v1/admin/properties', auth([ROLE_SADMIN, ROLE_ADMIN]), adminController.getCotoProperties);
+router.post('/api/v1/admin/property', auth([ROLE_SADMIN, ROLE_ADMIN]), adminController.addProperty);
 
 module.exports = router;
